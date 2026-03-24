@@ -1,0 +1,47 @@
+🔒 Oneline VPN — Полноценный VPN-сервис "под ключ"
+
+Свой собственный VPN, который не может заблокировать ни один провайдер.
+
+✅ Что внутри:
+• WireGuard VPN-сервер (установка одной командой)
+• Обфускация трафика через WebSocket (провайдер видит HTTPS, не VPN)
+• DNS over TLS (Cloudflare + Google)
+• Веб-сайт: лендинг + регистрация + личный кабинет
+• Админ-панель: пользователи, тарифы, статистика, доход
+• macOS клиент с menu bar (connect, kill switch, авто-подключение)
+• Конфиги и QR-коды для Windows, Android, iOS
+• Таблица сравнения с NordVPN, ProtonVPN, Cloudflare
+
+🔥 Почему лучше готовых VPN:
+• Свой сервер = 0 логов, полный контроль
+• ISP не видит VPN (wstunnel обфускация)
+• Разблокирует YouTube, Telegram, Discord, ChatGPT
+• 3 тарифа: Free / Pro / Business — можно продавать как SaaS
+• VPS стоит $3-5/мес
+
+💰 Цена: $149
+
+🔗 GitHub: https://github.com/jokersexy/oneline-vpn
+📩 Покупка: @jokersexy
+
+#vpn #wireguard #privacy #selfhosted #saas #oneline
+
+---
+
+🔒 Oneline VPN — Complete Self-Hosted VPN Service
+
+Your own VPN that no ISP can block.
+
+✅ Includes:
+• WireGuard server (one-command setup)
+• Traffic obfuscation (WebSocket — looks like HTTPS)
+• DNS over TLS
+• Landing page + dashboard + admin panel
+• macOS native client (menu bar app)
+• Configs + QR codes for Windows, Android, iOS
+• Comparison table vs major VPN providers
+
+💰 Price: $149
+
+🔗 GitHub: https://github.com/jokersexy/oneline-vpn
+📩 Contact: @jokersexy

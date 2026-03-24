@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oneline VPN — Secure. Fast. Anonymous.</title>
+    <meta name="description" content="Self-hosted VPN built on WireGuard. Zero logs, ISP invisible, all platforms. Your Internet, Your Rules.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-content">
+            <a href="/" class="logo">
+                <span class="logo-icon">&#9670;</span> Oneline
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#features">Features</a>
+                <a href="#comparison">Compare</a>
+                <a href="#pricing">Pricing</a>
+                <a href="/download">Download</a>
+                {% if session.get('user') %}
+                    <a href="/dashboard" class="btn btn-outline btn-sm">Dashboard</a>
+                {% else %}
+                    <a href="#" class="btn btn-outline btn-sm" onclick="showModal('login')">Log in</a>
+                    <a href="#" class="btn btn-primary btn-sm" onclick="showModal('register')">Get Started Free</a>
+                {% endif %}
+            </div>
+            <button class="nav-toggle" onclick="toggleNav()">&#9776;</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container hero-content">
+            <div class="hero-badge">
+                <span class="pulse"></span> Powered by WireGuard&reg; Protocol
+            </div>
+            <h1>Your Internet.<br><span class="gradient-text">Your Rules.</span></h1>
+            <p class="hero-subtitle">
+                Military-grade encryption with zero logs. Unblock YouTube, Telegram, Discord
+                and any service — from any device, anywhere.
+            </p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary btn-xl" onclick="showModal('register')">
+                    Start Free &rarr;
+                </a>
+                <a href="#features" class="btn btn-outline btn-lg">How it works</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Logs stored</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">&lt;3ms</span>
+                    <span class="stat-label">Latency overhead</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">4</span>
+                    <span class="stat-label">Platforms</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-value">256-bit</span>
+                    <span class="stat-label">Encryption</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Why Oneline?</h2>
+            <p class="section-subtitle">Not just another VPN. A privacy tool built for people who demand real security.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">&#128274;</div>
+                    <h3>True Zero-Knowledge</h3>
+                    <p>We don't log traffic, DNS queries, timestamps, or IP addresses. Mathematically impossible to track you.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#9889;</div>
+                    <h3>WireGuard Speed</h3>
+                    <p>Built on WireGuard — the fastest VPN protocol in existence. Less than 3ms overhead. No buffering.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128065;</div>
+                    <h3>ISP Invisible</h3>
+                    <p>Traffic obfuscation via WebSocket makes VPN look like regular HTTPS browsing. ISPs literally cannot see it.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#127760;</div>
+                    <h3>Unblock Everything</h3>
+                    <p>YouTube, Telegram, Discord, Netflix, ChatGPT — access any service from anywhere. No exceptions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128241;</div>
+                    <h3>All Your Devices</h3>
+                    <p>macOS, Windows, Android, iOS. One account. Native app for Mac, QR codes for mobile. Done in 10 seconds.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128736;</div>
+                    <h3>Self-Hosted Control</h3>
+                    <p>Your own server. Your own rules. No third-party trust. No corporate BS. Full sovereignty over your data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Connected in 60 Seconds</h2>
+            <p class="section-subtitle">No tech skills required. Three simple steps.</p>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create Account</h3>
+                    <p>Sign up in 10 seconds. Just email and password. No personal data. No phone number.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Generate Key</h3>
+                    <p>Click one button. Get your secure config instantly. QR code for mobile or file for desktop.</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>You're Protected</h3>
+                    <p>Import config into WireGuard app or use our native client. Every byte encrypted. Freedom restored.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section class="comparison" id="comparison">
+        <div class="container">
+            <h2 class="section-title">How We Compare</h2>
+            <p class="section-subtitle">See why privacy-conscious users choose Oneline over commercial VPNs.</p>
+            <div style="overflow-x:auto">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="highlight">Oneline</th>
+                            <th>NordVPN</th>
+                            <th>ProtonVPN</th>
+                            <th>Cloudflare</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Protocol</td>
+                            <td class="highlight"><strong>WireGuard</strong></td>
+                            <td>NordLynx</td>
+                            <td>WireGuard</td>
+                            <td>Proprietary</td>
+                        </tr>
+                        <tr>
+                            <td>Zero logs</td>
+                            <td class="highlight"><span class="check">&#10003;</span></td>
+                            <td><span class="check">&#10003;</span></td>
+                            <td><span class="check">&#10003;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Self-hosted</td>
+                            <td class="highlight"><span class="check">&#10003;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                        </tr>
+                        <tr>
+                            <td>ISP obfuscation</td>
+                            <td class="highlight"><span class="check">&#10003;</span></td>
+                            <td><span class="check">&#10003;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Open source</td>
+                            <td class="highlight"><span class="check">&#10003;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                            <td><span class="check">&#10003;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                        </tr>
+                        <tr>
+                            <td>No corporate control</td>
+                            <td class="highlight"><span class="check">&#10003;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                            <td><span class="cross">&#10005;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td class="highlight"><strong>Free / $4.99</strong></td>
+                            <td>$12.99/mo</td>
+                            <td>$9.99/mo</td>
+                            <td>Free*</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Simple, Honest Pricing</h2>
+            <p class="section-subtitle">Start free. Upgrade when you need more. No hidden fees ever.</p>
+            <div class="pricing-grid">
+                {% for plan_id, plan in plans.items() %}
+                <div class="pricing-card {% if plan_id == 'pro' %}pricing-featured{% endif %}">
+                    {% if plan_id == 'pro' %}<div class="pricing-badge">Most Popular</div>{% endif %}
+                    <h3 class="pricing-name">{{ plan.name }}</h3>
+                    <div class="pricing-price">
+                        {% if plan.price == 0 %}
+                            <span class="price-amount">Free</span>
+                        {% else %}
+                            <span class="price-currency">$</span>
+                            <span class="price-amount">{{ plan.price }}</span>
+                            <span class="price-period">/mo</span>
+                        {% endif %}
+                    </div>
+                    <ul class="pricing-features">
+                        {% for feature in plan.features %}
+                        <li><span class="pf-check">&#10003;</span> {{ feature }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="#" class="btn {% if plan_id == 'pro' %}btn-primary{% else %}btn-outline{% endif %} btn-block"
+                       onclick="showModal('register')">
+                        {% if plan.price == 0 %}Start Free{% else %}Get {{ plan.name }}{% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section style="background:var(--surface)">
+        <div class="container">
+            <h2 class="section-title">Trusted by Users Worldwide</h2>
+            <p class="section-subtitle">Real feedback from real users who switched to Oneline.</p>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Finally a VPN that actually works with YouTube and Telegram in my country. Setup took literally 2 minutes. Speeds are insane."</p>
+                    <div class="testimonial-author">Alex K.</div>
+                    <div class="testimonial-role">Developer, Moscow</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"I tried NordVPN, ProtonVPN, Cloudflare — all blocked by my ISP. Oneline with obfuscation just works. Can't detect it."</p>
+                    <div class="testimonial-author">Maria S.</div>
+                    <div class="testimonial-role">Designer, SPB</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="testimonial-text">"Self-hosted means I control everything. No corporate logging, no data selling. This is what VPN should be. Worth every cent."</p>
+                    <div class="testimonial-author">Daniel R.</div>
+                    <div class="testimonial-role">Security Engineer, Berlin</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        What is WireGuard and why is it better?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>WireGuard is a modern VPN protocol built into the Linux kernel. It's 4x faster than OpenVPN, uses state-of-the-art cryptography (ChaCha20, Curve25519), and has only 4,000 lines of code (vs OpenVPN's 100,000+) — making it far easier to audit for security.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Do you really store zero logs?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes. The server runs on YOUR infrastructure. We don't operate any servers — you do. The code is open source and auditable. There's no centralized logging mechanism. WireGuard itself doesn't log connections by default.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Can my ISP detect I'm using a VPN?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No. Oneline uses traffic obfuscation (wstunnel) that wraps WireGuard traffic inside WebSocket connections. To your ISP, it looks identical to regular HTTPS browsing. This bypasses even deep packet inspection (DPI).</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Which platforms are supported?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>All major platforms: macOS (native client), Windows, Android, and iOS. Desktop users download a config file, mobile users scan a QR code. Connected in under 60 seconds on any platform.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        What do I need to get started?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A VPS (virtual server) for $3-5/month from Hetzner, DigitalOcean, or Vultr. Run our one-command setup script, and the VPN server installs itself. The web panel and client work out of the box.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Can I sell this as my own VPN service?
+                        <span class="faq-arrow">&#9660;</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely. Oneline comes with an MIT license — you can rebrand it, sell subscriptions, run it as a SaaS business. The admin panel already supports user management, plans, and revenue tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding:80px 0">
+        <div class="container">
+            <div class="cta-banner">
+                <h2>Ready to Take Control?</h2>
+                <p>Join thousands of users who chose real privacy over empty promises.</p>
+                <a href="#" class="btn btn-primary btn-xl" onclick="showModal('register')" style="position:relative">
+                    Get Started Free &rarr;
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="/" class="logo" style="margin-bottom:12px">
+                        <span class="logo-icon">&#9670;</span> Oneline
+                    </a>
+                    <p>Privacy is not a luxury. It's a fundamental right. Take it back.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#pricing">Pricing</a>
+                    <a href="/download">Download</a>
+                    <a href="#comparison">Compare</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <a href="#faq">FAQ</a>
+                    <a href="#">Setup Guide</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Transparency</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Oneline VPN. All rights reserved. Built with WireGuard&reg;.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modals -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+
+            <div id="loginForm" class="auth-form" style="display:none">
+                <h2>Welcome back</h2>
+                <p class="auth-subtitle">Sign in to your Oneline account</p>
+                <form method="POST" action="/login">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required placeholder="you@example.com" autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" required placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" autocomplete="current-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                </form>
+                <p class="auth-switch">Don't have an account? <a href="#" onclick="showModal('register')">Sign up free</a></p>
+            </div>
+
+            <div id="registerForm" class="auth-form" style="display:none">
+                <h2>Create Account</h2>
+                <p class="auth-subtitle">Start protecting your privacy in 60 seconds</p>
+                <form method="POST" action="/register">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" required placeholder="johndoe" autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required placeholder="you@example.com" autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" required minlength="6" placeholder="Min. 6 characters" autocomplete="new-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Create Free Account</button>
+                </form>
+                <p class="auth-switch">Already have an account? <a href="#" onclick="showModal('login')">Sign in</a></p>
+            </div>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            {% for cat, msg in messages %}
+            showToast("{{ msg }}", "{{ cat }}");
+            {% endfor %}
+        });
+    </script>
+    {% endif %}
+    {% endwith %}
+
+    {% if show_login %}
+    <script>document.addEventListener('DOMContentLoaded', () => showModal('login'));</script>
+    {% endif %}
+    {% if show_register %}
+    <script>document.addEventListener('DOMContentLoaded', () => showModal('register'));</script>
+    {% endif %}
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

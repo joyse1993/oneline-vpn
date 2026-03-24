@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel — Oneline VPN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+</head>
+<body>
+    <nav class="navbar navbar-solid">
+        <div class="container nav-content">
+            <a href="/admin" class="logo">
+                <span class="logo-icon">&#9670;</span> Oneline
+                <span class="badge badge-pro" style="margin-left:8px">Admin</span>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="/" target="_blank">View Site</a>
+                <a href="/admin/logout" class="btn btn-outline btn-sm">Log out</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="admin">
+        <div class="container">
+            <div class="dash-header">
+                <h1 style="font-size:28px">Admin Dashboard</h1>
+                <span class="text-muted" style="font-size:13px">Oneline VPN Management</span>
+            </div>
+
+            <div class="admin-grid">
+                <div class="admin-stat">
+                    <div class="label">Total Users</div>
+                    <div class="value">{{ total_users }}</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="label">Active Keys</div>
+                    <div class="value">{{ active_keys }}</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="label">Total Keys</div>
+                    <div class="value">{{ total_keys }}</div>
+                </div>
+                <div class="admin-stat">
+                    <div class="label">Monthly Revenue</div>
+                    <div class="value revenue">${{ "%.2f"|format(monthly_revenue) }}</div>
+                </div>
+            </div>
+
+            <div class="dash-section">
+                <h2>Plan Distribution</h2>
+                <div class="flex gap-2 flex-wrap" style="gap:12px">
+                    {% for plan_name, count in plan_counts.items() %}
+                    <div style="padding:20px 28px; background:var(--surface); border-radius:var(--radius); border:1px solid var(--border); min-width:130px; text-align:center">
+                        <div style="font-size:28px; font-weight:800; color:white; letter-spacing:-0.03em">{{ count }}</div>
+                        <div class="text-muted" style="font-size:11px; text-transform:uppercase; letter-spacing:1px; margin-top:4px">{{ plan_name }}</div>
+                    </div>
+                    {% endfor %}
+                    {% if not plan_counts %}
+                    <p class="text-muted">No users yet</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="dash-section">
+                <h2>VPN Server Status</h2>
+                {% if server_status %}
+                <div class="flex gap-2 flex-wrap" style="gap:12px">
+                    <div class="dash-stat-card" style="flex:1; min-width:180px">
+                        <h4>WireGuard</h4>
+                        <div class="value" style="color:{% if server_status.active %}var(--green){% else %}var(--red){% endif %}">
+                            {% if server_status.active %}&#9679; Active{% else %}&#9679; Offline{% endif %}
+                        </div>
+                    </div>
+                    <div class="dash-stat-card" style="flex:1; min-width:180px">
+                        <h4>Connected Peers</h4>
+                        <div class="value">{{ server_status.total_clients }}</div>
+                    </div>
+                </div>
+                {% else %}
+                <div style="padding:28px; background:var(--surface); border-radius:var(--radius); border:1px solid rgba(245,158,11,0.2)">
+                    <p style="color:var(--orange);font-weight:600;margin-bottom:4px">&#9888; VPN Server Not Connected</p>
+                    <p class="text-muted" style="font-size:13px">
+                        Set <code style="background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:4px">VPN_API_URL</code> and
+                        <code style="background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:4px">VPN_API_KEY</code> environment variables to connect.
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="dash-section">
+                <h2>Users ({{ total_users }})</h2>
+                {% if users %}
+                <div style="overflow-x:auto">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Plan</th>
+                                <th>Devices</th>
+                                <th>Registered</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for email, u in users.items() %}
+                            <tr>
+                                <td style="font-weight:500">{{ email }}</td>
+                                <td>{{ u.username }}</td>
+                                <td><span class="badge badge-{{ u.get('plan', 'free') }}">{{ u.get('plan', 'free') }}</span></td>
+                                <td>
+                                    {% set user_keys = keys|selectattr('user', 'equalto', email)|list %}
+                                    {{ user_keys|length }}
+                                </td>
+                                <td style="font-size:12px; color:var(--text-muted)">{{ u.get('created', 'N/A')[:10] }}</td>
+                                <td>
+                                    <div style="display:flex;gap:6px;align-items:center">
+                                        <form method="POST" action="/admin/users/{{ email }}/plan" style="display:inline-flex;align-items:center;gap:4px">
+                                            <select name="plan" class="plan-select">
+                                                <option value="free" {% if u.get('plan')=='free' %}selected{% endif %}>Free</option>
+                                                <option value="pro" {% if u.get('plan')=='pro' %}selected{% endif %}>Pro</option>
+                                                <option value="business" {% if u.get('plan')=='business' %}selected{% endif %}>Business</option>
+                                            </select>
+                                            <button type="submit" class="btn btn-outline btn-sm" style="padding:4px 10px;font-size:11px">Set</button>
+                                        </form>
+                                        <form method="POST" action="/admin/users/{{ email }}/delete" onsubmit="return confirm('Delete user {{ email }}?')">
+                                            <button type="submit" class="btn btn-danger btn-sm" style="padding:4px 10px;font-size:11px">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted text-center" style="padding:32px 0">No users registered yet</p>
+                {% endif %}
+            </div>
+
+            <div class="dash-section">
+                <h2>All Keys ({{ total_keys }})</h2>
+                {% if keys %}
+                <div class="devices-grid">
+                    {% for key in keys %}
+                    <div class="device-row">
+                        <div>
+                            <div class="device-name">{{ key.device_name }}</div>
+                            <div class="device-platform">{{ key.user }} &bull; {{ key.platform }} &bull; {{ key.ip }}</div>
+                        </div>
+                        <span class="device-status {% if key.status == 'active' %}status-active{% else %}status-pending{% endif %}">
+                            {{ key.status }}
+                        </span>
+                        <span class="text-muted" style="font-size:12px">{{ key.get('created', '')[:10] }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted text-center" style="padding:32px 0">No keys generated yet</p>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

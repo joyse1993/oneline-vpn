@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download — Oneline VPN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+</head>
+<body>
+    <nav class="navbar navbar-solid">
+        <div class="container nav-content">
+            <a href="/" class="logo"><span class="logo-icon">&#9670;</span> Oneline</a>
+            <div class="nav-links" id="navLinks">
+                <a href="/#features">Features</a>
+                <a href="/#pricing">Pricing</a>
+                {% if session.get('user') %}
+                    <a href="/dashboard" class="btn btn-outline btn-sm">Dashboard</a>
+                {% else %}
+                    <a href="/login" class="btn btn-primary btn-sm">Get Started</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <section class="download-hero">
+        <div class="container">
+            <h1>Download Oneline VPN</h1>
+            <p class="hero-subtitle">Choose your platform. Connected in under 60 seconds.</p>
+
+            <div class="download-grid">
+                <div class="download-card">
+                    <div class="download-icon">&#63743;</div>
+                    <h3>macOS</h3>
+                    <p>Native Oneline client with menu bar integration, one-click connect, and kill switch.</p>
+                    <div class="download-requirements">macOS 12+ (Monterey or later)</div>
+                    <a href="#" class="btn btn-primary btn-block">Download .dmg</a>
+                    <span class="download-alt">or use <code>brew install oneline-vpn</code></span>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-icon">&#128187;</div>
+                    <h3>Windows</h3>
+                    <p>Use the official WireGuard client with auto-generated Oneline configuration.</p>
+                    <div class="download-requirements">Windows 10+ (64-bit)</div>
+                    <a href="https://www.wireguard.com/install/" class="btn btn-outline btn-block" target="_blank">Get WireGuard</a>
+                    <span class="download-alt">Then import your .conf from Dashboard</span>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-icon">&#129302;</div>
+                    <h3>Android</h3>
+                    <p>Scan QR from Dashboard with WireGuard app. Connected in 5 seconds flat.</p>
+                    <div class="download-requirements">Android 5.0+</div>
+                    <a href="https://play.google.com/store/apps/details?id=com.wireguard.android" class="btn btn-outline btn-block" target="_blank">Google Play</a>
+                    <span class="download-alt">Dashboard &rarr; Add Device &rarr; Scan QR</span>
+                </div>
+
+                <div class="download-card">
+                    <div class="download-icon">&#127822;</div>
+                    <h3>iOS</h3>
+                    <p>Scan QR code with WireGuard iOS app. No manual config needed.</p>
+                    <div class="download-requirements">iOS 15+</div>
+                    <a href="https://apps.apple.com/app/wireguard/id1441195209" class="btn btn-outline btn-block" target="_blank">App Store</a>
+                    <span class="download-alt">Dashboard &rarr; Add Device &rarr; Scan QR</span>
+                </div>
+            </div>
+
+            <div class="download-instructions">
+                <h2>Setup in 3 Steps</h2>
+                <div class="instruction-steps">
+                    <div class="instruction">
+                        <h4>1. Create account</h4>
+                        <p>Sign up at <a href="/register">oneline.vpn/register</a>. Takes 10 seconds.</p>
+                    </div>
+                    <div class="instruction">
+                        <h4>2. Generate key</h4>
+                        <p>Go to <a href="/dashboard">Dashboard</a>, click "Add Device", pick platform.</p>
+                    </div>
+                    <div class="instruction">
+                        <h4>3. Connect</h4>
+                        <p><strong>Mobile:</strong> Scan QR &rarr; Done.<br>
+                           <strong>Desktop:</strong> Download .conf &rarr; Import &rarr; Done.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container footer-bottom">
+            <p>&copy; 2025 Oneline VPN. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

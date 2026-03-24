@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — Oneline VPN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
+</head>
+<body>
+    <nav class="navbar navbar-solid">
+        <div class="container nav-content">
+            <a href="/" class="logo"><span class="logo-icon">&#9670;</span> Oneline</a>
+            <div class="nav-links" id="navLinks">
+                <a href="/download">Download</a>
+                <span class="text-muted" style="font-size:13px">{{ email }}</span>
+                <a href="/logout" class="btn btn-outline btn-sm">Log out</a>
+            </div>
+            <button class="nav-toggle" onclick="toggleNav()">&#9776;</button>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="container">
+            <div class="dash-header">
+                <div>
+                    <h1>Welcome, {{ user.get('username', 'User') }}</h1>
+                    <p class="text-muted" style="font-size:14px">Manage your devices and VPN connections</p>
+                </div>
+                <div class="dash-plan-badge">
+                    &#9670; {{ plan.name }} Plan
+                    {% if plan.name == 'Free' %}
+                        — <a href="/#pricing" style="margin-left:6px">Upgrade</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="dash-stats">
+                <div class="dash-stat-card">
+                    <h4>Active Devices</h4>
+                    <div class="value">{{ keys|length }}</div>
+                    <div class="sub">of {{ plan.devices }} allowed</div>
+                </div>
+                <div class="dash-stat-card">
+                    <h4>Current Plan</h4>
+                    <div class="value">{{ plan.name }}</div>
+                    <div class="sub">{{ plan.speed }}</div>
+                </div>
+                <div class="dash-stat-card">
+                    <h4>Protection</h4>
+                    <div class="value" style="color: var(--green)">Active</div>
+                    <div class="sub">256-bit encryption</div>
+                </div>
+                <div class="dash-stat-card">
+                    <h4>Protocol</h4>
+                    <div class="value">WireGuard</div>
+                    <div class="sub">Fastest available</div>
+                </div>
+            </div>
+
+            <div class="dash-section">
+                <h2>Add New Device</h2>
+                <form method="POST" action="/dashboard/generate-key" class="add-device-form">
+                    <div class="form-group" style="margin:0">
+                        <label>Device Name</label>
+                        <input type="text" name="device_name" required placeholder="e.g. My MacBook Pro" maxlength="30">
+                    </div>
+                    <div class="form-group" style="margin:0">
+                        <label>Platform</label>
+                        <select name="platform">
+                            <option value="macos">&#63743; macOS</option>
+                            <option value="windows">&#128187; Windows</option>
+                            <option value="android">&#129302; Android</option>
+                            <option value="ios">&#127822; iOS</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Generate Key</button>
+                </form>
+            </div>
+
+            <div class="dash-section">
+                <h2>
+                    Your Devices
+                    <span class="text-muted" style="font-size:14px;font-weight:400">{{ keys|length }}/{{ plan.devices }}</span>
+                </h2>
+
+                {% if keys %}
+                <div class="devices-grid">
+                    {% for key in keys %}
+                    <div class="device-row">
+                        <div>
+                            <div class="device-name">{{ key.device_name }}</div>
+                            <div class="device-platform">
+                                {% if key.platform == 'macos' %}&#63743;{% elif key.platform == 'windows' %}&#128187;{% elif key.platform == 'android' %}&#129302;{% else %}&#127822;{% endif %}
+                                {{ key.platform }} &bull; {{ key.ip }}
+                            </div>
+                        </div>
+                        <span class="device-status {% if key.status == 'active' %}status-active{% else %}status-pending{% endif %}">
+                            {{ key.status }}
+                        </span>
+                        <button class="btn btn-outline btn-sm" onclick="showKeyDetails('{{ key.id }}')">
+                            View Config
+                        </button>
+                        <form method="POST" action="/dashboard/key/{{ key.id }}/delete" style="display:inline"
+                              onsubmit="return confirm('Remove this device? This cannot be undone.')">
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center" style="padding:48px 0">
+                    <p style="font-size:48px;margin-bottom:16px">&#128274;</p>
+                    <p style="color:white;font-weight:600;margin-bottom:8px">No devices yet</p>
+                    <p class="text-muted" style="font-size:14px">Add your first device above to generate a VPN key</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="dash-section">
+                <h2>Quick Setup</h2>
+                <div class="instruction-steps" style="margin-top:0">
+                    <div class="instruction">
+                        <h4>&#128241; Mobile (Android / iOS)</h4>
+                        <p>1. Install <strong>WireGuard</strong> from App Store / Google Play<br>
+                           2. Add a device above and choose your platform<br>
+                           3. Click "View Config" and scan the QR code<br>
+                           4. Toggle the switch — you're protected</p>
+                    </div>
+                    <div class="instruction">
+                        <h4>&#128187; Desktop (macOS / Windows)</h4>
+                        <p>1. Download Oneline client or install WireGuard<br>
+                           2. Add a device above and choose your platform<br>
+                           3. Click "View Config" → "Download .conf"<br>
+                           4. Import the file into your VPN client</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Details Modal -->
+    <div class="modal-overlay" id="keyModal">
+        <div class="modal" style="max-width:560px">
+            <button class="modal-close" onclick="closeKeyModal()">&times;</button>
+            <h2 style="margin-bottom:20px;font-size:22px">&#128273; <span id="keyDeviceName"></span></h2>
+
+            <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px;font-size:13px">
+                <div><span class="text-muted">Platform</span><br><strong id="keyPlatform"></strong></div>
+                <div><span class="text-muted">IP Address</span><br><strong id="keyIP"></strong></div>
+                <div><span class="text-muted">Created</span><br><strong id="keyCreated"></strong></div>
+            </div>
+
+            <div class="qr-container" id="keyQR" style="display:none"></div>
+
+            <h4 style="margin-bottom:8px; color:var(--text-muted); font-size:12px; text-transform:uppercase; letter-spacing:0.5px">WireGuard Configuration</h4>
+            <div class="config-display" id="keyConfig"></div>
+
+            <div class="flex gap-2 mt-2" style="justify-content:center;gap:10px">
+                <button class="btn btn-primary btn-sm" onclick="copyConfig()">&#128203; Copy Config</button>
+                <button class="btn btn-outline btn-sm" onclick="downloadConfig()">&#11015; Download .conf</button>
+            </div>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            {% for cat, msg in messages %}
+            showToast("{{ msg }}", "{{ cat }}");
+            {% endfor %}
+        });
+    </script>
+    {% endif %}
+    {% endwith %}
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
