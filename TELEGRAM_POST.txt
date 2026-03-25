@@ -10,21 +10,20 @@
 • Админ-панель: пользователи, тарифы, статистика
 • macOS клиент с menu bar (connect, kill switch, авто-подключение)
 • Конфиги и QR-коды для Windows, Android, iOS
-• Сравнение с NordVPN, ProtonVPN, Cloudflare
 
 🎬 Работает с:
-• YouTube (4K) • TikTok • Instagram • Twitter/X
-• Telegram • Discord • ChatGPT • Spotify
-• Twitch • Netflix • Steam • И 1000+ других
+YouTube (4K) • TikTok • Instagram • Twitter/X
+Telegram • Discord • ChatGPT • Spotify
+Twitch • Netflix • Steam • И 1000+ других
 
 🔥 Почему 19 VPN:
 • Свой сервер = 0 логов, полный контроль
 • Провайдер не видит VPN (wstunnel обфускация)
 • YouTube, TikTok, Telegram, Discord — всё работает
 • Бесплатно для учеников 19-й гимназии
-• VPS стоит $3-5/мес
 
+❓ Все вопросы → @ForwardElite
+📢 Канал → @vpngym19
 🔗 GitHub: https://github.com/joyse1993/oneline-vpn
-📩 Контакт: @jokersexy
 
 #19vpn #гимназия19 #wireguard #vpn #одиндевять
