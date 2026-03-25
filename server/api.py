@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Oneline VPN — Server REST API for web panel integration."""
+"""19 VPN — Server REST API for web panel integration."""
 
 import os
 import sys
@@ -49,7 +49,7 @@ def require_auth(f):
 
 @app.route("/api/health")
 def health():
-    return jsonify({"status": "ok", "service": "Oneline VPN"})
+    return jsonify({"status": "ok", "service": "19 VPN"})
 
 
 @app.route("/api/server/status")
@@ -187,5 +187,5 @@ if __name__ == "__main__":
         token = generate_api_token()
         print(f"\nAPI Token (save this, it won't be shown again):\n\n  {token}\n")
     else:
-        print(f"Oneline VPN API starting on port {API_PORT}")
+        print(f"19 VPN API starting on port {API_PORT}")
         app.run(host="0.0.0.0", port=API_PORT, ssl_context="adhoc" if os.path.exists("/etc/ssl") else None)

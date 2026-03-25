@@ -1,64 +1,58 @@
-# ◆ Oneline VPN — Self-Hosted VPN Service
+# 🛡 19 VPN — VPN для учеников гимназии ОдинДевять
 
 <div align="center">
 
-### Your Internet. Your Rules.
+### Свободный интернет для Девятнадцатой.
 
-A complete, self-hosted VPN solution built on WireGuard.
-Web panel + Admin dashboard + macOS client + all platforms.
+Полноценный VPN на WireGuard: веб-панель, админка, macOS-клиент, все платформы.
 
-**Zero logs · ISP invisible · Open source**
+**Ноль логов · Обфускация · Открытый код**
 
-[Features](#features) · [Quick Start](#quick-start) · [Architecture](#architecture) · [Pricing](#selling)
+[Возможности](#возможности) · [Установка](#установка) · [Архитектура](#архитектура)
 
 ---
 
 </div>
 
-## Features
+## Возможности
 
-| Feature | Description |
-|---------|-------------|
-| **WireGuard Protocol** | Fastest VPN protocol — built into Linux kernel, 4x faster than OpenVPN |
-| **Traffic Obfuscation** | wstunnel wraps VPN in WebSocket — ISPs see HTTPS, not VPN |
-| **DNS over TLS** | Unbound resolver forwards to Cloudflare DoT + Google DoT |
-| **Zero Logs** | No traffic logs, no DNS logs, no timestamps, no IP logs |
-| **Web Dashboard** | Users register, generate keys, scan QR codes |
-| **Admin Panel** | Manage users, plans (Free/Pro/Business), view revenue + stats |
-| **macOS Client** | Native menu bar app — connect, disconnect, kill switch, auto-connect |
-| **All Platforms** | macOS, Windows, Android, iOS via WireGuard configs + QR |
-| **Kill Switch** | Blocks all traffic if VPN drops (macOS client) |
-| **Commercial Ready** | 3-tier pricing, user management, MIT license — run as SaaS |
+| Что | Описание |
+|-----|----------|
+| **WireGuard** | Самый быстрый VPN-протокол — встроен в ядро Linux, в 4x быстрее OpenVPN |
+| **Обфускация трафика** | wstunnel оборачивает VPN в WebSocket — провайдер видит HTTPS, а не VPN |
+| **DNS over TLS** | Unbound → Cloudflare DoT + Google DoT. Безопасный DNS. |
+| **Ноль логов** | Не записываем трафик, DNS, IP, временные метки |
+| **Веб-панель** | Регистрация, генерация ключей, QR-коды |
+| **Админ-панель** | Управление пользователями, тарифами, статистика, доход |
+| **macOS клиент** | Приложение в menu bar — подключение, kill switch, авто-connect |
+| **Все платформы** | macOS, Windows, Android, iOS через WireGuard конфиги + QR |
+| **Kill Switch** | Блокирует весь трафик при падении VPN (macOS) |
+| **YouTube, Telegram, Discord** | Всё работает без ограничений |
 
-## Tech Stack
+## Технологии
 
-| Component | Technology |
+| Компонент | Технология |
 |-----------|-----------|
-| VPN Server | WireGuard + wstunnel + Unbound DNS |
-| Web Panel | Python Flask, Jinja2, HTML5/CSS3/JS |
-| macOS Client | Python + rumps (menu bar framework) |
-| Database | JSON files (no external DB needed) |
-| Setup | Single `setup.sh` — one command |
+| VPN-сервер | WireGuard + wstunnel + Unbound DNS |
+| Веб-панель | Python Flask, Jinja2, HTML5/CSS3/JS |
+| macOS клиент | Python + rumps (menu bar) |
+| База данных | JSON-файлы (без внешних БД) |
+| Установка | `setup.sh` — одна команда |
 
-## Quick Start
+## Установка
 
-### 1. Deploy VPN Server
+### 1. VPN-сервер
 
-Buy a VPS ($3-5/month) — Hetzner, DigitalOcean, or Vultr. Then:
+Купи VPS ($3-5/мес) — Hetzner, DigitalOcean, Vultr. Далее:
 
 ```bash
 cd server
 sudo bash setup.sh
 ```
 
-**What this does:**
-- Installs WireGuard
-- Configures DNS over TLS (Unbound → Cloudflare + Google)
-- Installs wstunnel for traffic obfuscation
-- Sets up firewall (ufw)
-- Generates first client config + QR code
+Скрипт установит WireGuard, настроит DNS over TLS (Unbound), wstunnel для обфускации, firewall и создаст первый конфиг.
 
-### 2. Run Web Panel
+### 2. Веб-панель
 
 ```bash
 cd web
@@ -66,18 +60,18 @@ pip install flask requests
 python app.py
 ```
 
-Open `http://localhost:5000`
+Открой `http://localhost:5000`
 
-**Environment variables:**
+**Переменные окружения:**
 ```
 VPN_API_URL=https://YOUR_VPS_IP:8443
 VPN_API_KEY=your-api-token
 ADMIN_USER=admin
-ADMIN_PASS=your-password
+ADMIN_PASS=19gym2025
 SECRET_KEY=random-secret
 ```
 
-### 3. macOS Client
+### 3. macOS клиент
 
 ```bash
 cd client
@@ -85,84 +79,52 @@ pip install rumps
 python nexusvpn.py
 ```
 
-### 4. Other Platforms
+### 4. Другие платформы
 
-| Platform | How to connect |
-|----------|---------------|
-| **Android** | Dashboard → Add Device → Scan QR with WireGuard app |
-| **iOS** | Dashboard → Add Device → Scan QR with WireGuard app |
-| **Windows** | Dashboard → Download .conf → Import into WireGuard |
-| **macOS** | Use Oneline client or import .conf into WireGuard |
+| Платформа | Как подключиться |
+|-----------|-----------------|
+| **Android** | Кабинет → Добавить устройство → Сканируй QR в WireGuard |
+| **iOS** | Кабинет → Добавить устройство → Сканируй QR в WireGuard |
+| **Windows** | Кабинет → Скачать .conf → Импортируй в WireGuard |
+| **macOS** | Используй клиент 19 VPN или импортируй .conf |
 
-## Architecture
+## Архитектура
 
 ```
 nexus_vpn/
-├── server/                 # VPS deployment
-│   ├── setup.sh            # One-command installer (WG + wstunnel + Unbound)
-│   ├── manage.py           # CLI: add/remove/list clients
-│   ├── wg_manager.py       # WireGuard key/config management
-│   └── api.py              # REST API for web panel
+├── server/                 # Серверная часть (VPS)
+│   ├── setup.sh            # Установка одной командой
+│   ├── manage.py           # CLI: добавить/удалить клиентов
+│   ├── wg_manager.py       # Управление ключами WireGuard
+│   └── api.py              # REST API для веб-панели
 │
-├── web/                    # Web panel (Flask)
-│   ├── app.py              # Auth, dashboard, admin, API integration
-│   ├── templates/          # Landing, Dashboard, Admin, Download
-│   └── static/             # Premium CSS + JS
+├── web/                    # Веб-панель (Flask)
+│   ├── app.py              # Авторизация, кабинет, админка
+│   ├── templates/          # Лендинг, Кабинет, Админка, Скачать
+│   └── static/             # CSS + JS
 │
-├── client/                 # macOS desktop client
-│   ├── nexusvpn.py         # Entry point
-│   ├── vpn_engine.py       # WireGuard connection engine
-│   ├── tray.py             # Menu bar app (rumps)
-│   └── config.py           # Config storage
+├── client/                 # macOS клиент
+│   ├── nexusvpn.py         # Точка входа
+│   ├── vpn_engine.py       # WireGuard-движок
+│   ├── tray.py             # Menu bar (rumps)
+│   └── config.py           # Хранение конфигов
 │
-└── configs/                # Example configs + setup guide
+└── configs/                # Примеры конфигов
     ├── SETUP_GUIDE.md
-    └── *.conf              # Per-platform examples
+    └── *.conf
 ```
 
-## Web Panel
+## Сервер: требования
 
-### Landing Page
-- Animated hero with gradient text
-- 6 feature cards with hover effects
-- Comparison table vs NordVPN/ProtonVPN/Cloudflare
-- 3-tier pricing (Free / $4.99 Pro / $14.99 Business)
-- Testimonials from users
-- FAQ accordion
-- CTA banner
-- Full footer with links
+- Ubuntu 20.04+ или Debian 11+
+- 512 MB RAM минимум
+- Root-доступ
+- VPS: $3-5/месяц
 
-### User Dashboard
-- Device management — add/remove
-- Config viewer with copy + download
-- QR code generation for mobile
-- Plan status + upgrade prompts
-- Quick setup instructions
+## Лицензия
 
-### Admin Panel
-- Revenue tracking
-- User management (change plan, delete)
-- Plan distribution overview
-- Server status (WireGuard active/offline)
-- All keys listing
+MIT License — можно использовать, менять, распространять.
 
-## Selling
+---
 
-**Recommended price: $99 — $199**
-
-Target buyers:
-- Privacy-conscious individuals
-- Small businesses needing corporate VPN
-- Developers wanting self-hosted VPN
-- Resellers who want to launch a VPN service
-
-## Server Requirements
-
-- Ubuntu 20.04+ or Debian 11+
-- 512 MB RAM minimum
-- Root access
-- VPS: $3-5/month
-
-## License
-
-MIT License — commercial use, modification, and resale allowed.
+**19 VPN** — Сделано для гимназии №19 ОдинДевять, Казань.

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard — Oneline VPN</title>
+    <title>Кабинет — 19 VPN</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
 </head>
 <body>
     <nav class="navbar navbar-solid">
         <div class="container nav-content">
-            <a href="/" class="logo"><span class="logo-icon">&#9670;</span> Oneline</a>
+            <a href="/" class="logo"><span class="logo-icon">19</span> <div>VPN<br><span class="logo-text-sub">ГИМНАЗИЯ</span></div></a>
             <div class="nav-links" id="navLinks">
-                <a href="/download">Download</a>
+                <a href="/download">Скачать</a>
                 <span class="text-muted" style="font-size:13px">{{ email }}</span>
-                <a href="/logout" class="btn btn-outline btn-sm">Log out</a>
+                <a href="/logout" class="btn btn-outline btn-sm">Выйти</a>
             </div>
             <button class="nav-toggle" onclick="toggleNav()">&#9776;</button>
         </div>
@@ -24,8 +24,8 @@
         <div class="container">
             <div class="dash-header">
                 <div>
-                    <h1>Welcome, {{ user.get('username', 'User') }}</h1>
-                    <p class="text-muted" style="font-size:14px">Manage your devices and VPN connections</p>
+                    <h1>Привет, {{ user.get('username', 'User') }}</h1>
+                    <p class="text-muted" style="font-size:14px">Управление устройствами и VPN-подключениями</p>
                 </div>
                 <div class="dash-plan-badge">
                     &#9670; {{ plan.name }} Plan
@@ -37,36 +37,36 @@
 
             <div class="dash-stats">
                 <div class="dash-stat-card">
-                    <h4>Active Devices</h4>
+                    <h4>Активные устройства</h4>
                     <div class="value">{{ keys|length }}</div>
-                    <div class="sub">of {{ plan.devices }} allowed</div>
+                    <div class="sub">из {{ plan.devices }} доступных</div>
                 </div>
                 <div class="dash-stat-card">
-                    <h4>Current Plan</h4>
+                    <h4>Тариф</h4>
                     <div class="value">{{ plan.name }}</div>
                     <div class="sub">{{ plan.speed }}</div>
                 </div>
                 <div class="dash-stat-card">
-                    <h4>Protection</h4>
-                    <div class="value" style="color: var(--green)">Active</div>
-                    <div class="sub">256-bit encryption</div>
+                    <h4>Защита</h4>
+                    <div class="value" style="color: var(--green)">Активна</div>
+                    <div class="sub">256-bit шифрование</div>
                 </div>
                 <div class="dash-stat-card">
-                    <h4>Protocol</h4>
+                    <h4>Протокол</h4>
                     <div class="value">WireGuard</div>
-                    <div class="sub">Fastest available</div>
+                    <div class="sub">Самый быстрый</div>
                 </div>
             </div>
 
             <div class="dash-section">
-                <h2>Add New Device</h2>
+                <h2>Добавить устройство</h2>
                 <form method="POST" action="/dashboard/generate-key" class="add-device-form">
                     <div class="form-group" style="margin:0">
-                        <label>Device Name</label>
-                        <input type="text" name="device_name" required placeholder="e.g. My MacBook Pro" maxlength="30">
+                        <label>Название устройства</label>
+                        <input type="text" name="device_name" required placeholder="напр. Мой MacBook Pro" maxlength="30">
                     </div>
                     <div class="form-group" style="margin:0">
-                        <label>Platform</label>
+                        <label>Платформа</label>
                         <select name="platform">
                             <option value="macos">&#63743; macOS</option>
                             <option value="windows">&#128187; Windows</option>
@@ -74,13 +74,13 @@
                             <option value="ios">&#127822; iOS</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Generate Key</button>
+                    <button type="submit" class="btn btn-primary">Создать ключ</button>
                 </form>
             </div>
 
             <div class="dash-section">
                 <h2>
-                    Your Devices
+                    Твои устройства
                     <span class="text-muted" style="font-size:14px;font-weight:400">{{ keys|length }}/{{ plan.devices }}</span>
                 </h2>
 
@@ -99,11 +99,11 @@
                             {{ key.status }}
                         </span>
                         <button class="btn btn-outline btn-sm" onclick="showKeyDetails('{{ key.id }}')">
-                            View Config
+                            Конфиг
                         </button>
                         <form method="POST" action="/dashboard/key/{{ key.id }}/delete" style="display:inline"
-                              onsubmit="return confirm('Remove this device? This cannot be undone.')">
-                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                              onsubmit="return confirm('Удалить устройство? Это действие нельзя отменить.')">
+                            <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
                         </form>
                     </div>
                     {% endfor %}
@@ -111,28 +111,28 @@
                 {% else %}
                 <div class="text-center" style="padding:48px 0">
                     <p style="font-size:48px;margin-bottom:16px">&#128274;</p>
-                    <p style="color:white;font-weight:600;margin-bottom:8px">No devices yet</p>
-                    <p class="text-muted" style="font-size:14px">Add your first device above to generate a VPN key</p>
+                    <p style="color:white;font-weight:600;margin-bottom:8px">Устройств пока нет</p>
+                    <p class="text-muted" style="font-size:14px">Добавь первое устройство выше, чтобы получить VPN-ключ</p>
                 </div>
                 {% endif %}
             </div>
 
             <div class="dash-section">
-                <h2>Quick Setup</h2>
+                <h2>Быстрая настройка</h2>
                 <div class="instruction-steps" style="margin-top:0">
                     <div class="instruction">
-                        <h4>&#128241; Mobile (Android / iOS)</h4>
-                        <p>1. Install <strong>WireGuard</strong> from App Store / Google Play<br>
-                           2. Add a device above and choose your platform<br>
-                           3. Click "View Config" and scan the QR code<br>
-                           4. Toggle the switch — you're protected</p>
+                        <h4>&#128241; Мобильные (Android / iOS)</h4>
+                        <p>1. Установи <strong>WireGuard</strong> из App Store / Google Play<br>
+                           2. Добавь устройство выше и выбери платформу<br>
+                           3. Нажми «Конфиг» и отсканируй QR-код<br>
+                           4. Включи переключатель — готово</p>
                     </div>
                     <div class="instruction">
-                        <h4>&#128187; Desktop (macOS / Windows)</h4>
-                        <p>1. Download Oneline client or install WireGuard<br>
-                           2. Add a device above and choose your platform<br>
-                           3. Click "View Config" → "Download .conf"<br>
-                           4. Import the file into your VPN client</p>
+                        <h4>&#128187; Десктоп (macOS / Windows)</h4>
+                        <p>1. Скачай клиент 19 VPN или установи WireGuard<br>
+                           2. Добавь устройство выше и выбери платформу<br>
+                           3. Нажми «Конфиг» → «Скачать .conf»<br>
+                           4. Импортируй файл в VPN-клиент</p>
                     </div>
                 </div>
             </div>
@@ -157,8 +157,8 @@
             <div class="config-display" id="keyConfig"></div>
 
             <div class="flex gap-2 mt-2" style="justify-content:center;gap:10px">
-                <button class="btn btn-primary btn-sm" onclick="copyConfig()">&#128203; Copy Config</button>
-                <button class="btn btn-outline btn-sm" onclick="downloadConfig()">&#11015; Download .conf</button>
+                <button class="btn btn-primary btn-sm" onclick="copyConfig()">&#128203; Копировать</button>
+                <button class="btn btn-outline btn-sm" onclick="downloadConfig()">&#11015; Скачать .conf</button>
             </div>
         </div>
     </div>

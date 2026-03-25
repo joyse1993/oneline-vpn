@@ -1,6 +1,6 @@
 #!/bin/bash
 # ═══════════════════════════════════════════════════════════
-# Oneline VPN — Server Auto-Setup Script v2.0
+# 19 VPN — Server Auto-Setup Script v2.0
 # Supports: Ubuntu 20.04/22.04/24.04, Debian 11/12
 # Usage: sudo bash setup.sh
 # ═══════════════════════════════════════════════════════════
@@ -25,7 +25,7 @@ WSTUNNEL_VERSION="10.1.0"
 echo -e "${CYAN}"
 echo "╔══════════════════════════════════════════════════╗"
 echo "║                                                  ║"
-echo "║     ◆  Oneline VPN  — Server Setup v2.0          ║"
+echo "║     🛡  19 VPN  — Server Setup v2.0                ║"
 echo "║     WireGuard + WebSocket Obfuscation            ║"
 echo "║                                                  ║"
 echo "╚══════════════════════════════════════════════════╝"
@@ -71,7 +71,7 @@ echo -e "${GREEN}  ✓ Packages installed${NC}"
 
 echo -e "${CYAN}[2/8] Configuring secure DNS (Unbound)...${NC}"
 
-cat > /etc/unbound/unbound.conf.d/oneline.conf << 'DNSEOF'
+cat > /etc/unbound/unbound.conf.d/19vpn.conf << 'DNSEOF'
 server:
     num-threads: 2
     interface: 10.66.66.1
@@ -175,7 +175,7 @@ if wget -qO /tmp/wstunnel.tar.gz "$WSTUNNEL_URL" 2>/dev/null; then
 
     cat > /etc/systemd/system/wstunnel.service << EOF
 [Unit]
-Description=Oneline VPN Obfuscation (wstunnel)
+Description=19 VPN Obfuscation (wstunnel)
 After=network.target wg-quick@wg0.service
 
 [Service]
@@ -213,9 +213,9 @@ echo -e "${GREEN}  ✓ Firewall configured${NC}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [[ -f "$SCRIPT_DIR/manage.py" ]]; then
-    cp "$SCRIPT_DIR/manage.py" /usr/local/bin/oneline-manage
+    cp "$SCRIPT_DIR/manage.py" /usr/local/bin/19vpn-manage
     cp "$SCRIPT_DIR/wg_manager.py" /usr/local/bin/wg_manager.py
-    chmod +x /usr/local/bin/oneline-manage
+    chmod +x /usr/local/bin/19vpn-manage
 fi
 
 # ─── Create First Client ──────────────────────────────
@@ -270,7 +270,7 @@ with open('$WG_DIR/clients.json', 'w') as f:
 
 echo ""
 echo -e "${CYAN}╔══════════════════════════════════════════════════╗${NC}"
-echo -e "${CYAN}║${GREEN}     ◆  Oneline VPN Server is READY!              ${CYAN}║${NC}"
+echo -e "${CYAN}║${GREEN}     🛡  19 VPN Server is READY!                   ${CYAN}║${NC}"
 echo -e "${CYAN}╚══════════════════════════════════════════════════╝${NC}"
 echo ""
 echo -e "  Server IP:       ${BOLD}$SERVER_PUB_IP${NC}"
@@ -287,8 +287,8 @@ qrencode -t ansiutf8 < $WG_DIR/client_default.conf 2>/dev/null || echo "  (qrenc
 echo ""
 echo -e "${CYAN}──────────────────────────────────────────────────${NC}"
 echo -e "  ${BOLD}Management commands:${NC}"
-echo -e "  oneline-manage add <name>     Add new client"
-echo -e "  oneline-manage remove <name>  Remove client"
-echo -e "  oneline-manage list           List all clients"
-echo -e "  oneline-manage qr <name>      Show QR code"
+echo -e "  19vpn-manage add <name>     Add new client"
+echo -e "  19vpn-manage remove <name>  Remove client"
+echo -e "  19vpn-manage list           List all clients"
+echo -e "  19vpn-manage qr <name>      Show QR code"
 echo -e "${CYAN}──────────────────────────────────────────────────${NC}"

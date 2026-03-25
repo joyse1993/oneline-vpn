@@ -1,4 +1,4 @@
-"""NexusVPN Client — WireGuard VPN engine for macOS."""
+"""19 VPN Client — WireGuard VPN engine for macOS."""
 
 import subprocess
 import os

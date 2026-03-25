@@ -1,12 +1,12 @@
-"""Oneline VPN Client — Configuration and storage."""
+"""19 VPN Client — Configuration and storage."""
 
 import os
 import json
 
-APP_NAME = "Oneline VPN"
+APP_NAME = "19 VPN"
 APP_VERSION = "2.0.0"
 
-CONFIG_DIR = os.path.expanduser("~/.oneline-vpn")
+CONFIG_DIR = os.path.expanduser("~/.19vpn")
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 PROFILES_DIR = os.path.join(CONFIG_DIR, "profiles")
 

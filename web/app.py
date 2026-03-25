@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Oneline VPN — Web Panel (Landing + Dashboard + Admin)."""
+"""19 VPN — Web Panel (Landing + Dashboard + Admin)."""
 
 import os
 import sys
@@ -29,7 +29,7 @@ KEYS_FILE = os.path.join(DATA_DIR, "keys.json")
 CONFIG_FILE = os.path.join(DATA_DIR, "config.json")
 
 ADMIN_USER = os.environ.get("ADMIN_USER", "admin")
-ADMIN_PASS = os.environ.get("ADMIN_PASS", "oneline2025")
+ADMIN_PASS = os.environ.get("ADMIN_PASS", "19gym2025")
 
 API_URL = os.environ.get("VPN_API_URL", "http://localhost:8443")
 API_KEY = os.environ.get("VPN_API_KEY", "")

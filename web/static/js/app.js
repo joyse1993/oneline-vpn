@@ -1,4 +1,4 @@
-/* Oneline VPN — Frontend v2 */
+/* 19 VPN — Гимназия ОдинДевять */
 
 // ─── Navbar ──────────────────────────────
 const navbar = document.getElementById('navbar');
@@ -81,17 +81,17 @@ async function showKeyDetails(keyId) {
 
         const qrEl = document.getElementById('keyQR');
         if (data.qr_base64) {
-            qrEl.innerHTML = `<img src="data:image/png;base64,${data.qr_base64}" alt="QR Code"><p class="text-muted mt-1" style="font-size:12px">Scan with WireGuard app on mobile</p>`;
+            qrEl.innerHTML = `<img src="data:image/png;base64,${data.qr_base64}" alt="QR Code"><p class="text-muted mt-1" style="font-size:12px">Сканируй в WireGuard на телефоне</p>`;
             qrEl.style.display = 'block';
         } else {
-            qrEl.innerHTML = '<p class="text-muted" style="font-size:13px">QR code will appear when server is connected</p>';
+            qrEl.innerHTML = '<p class="text-muted" style="font-size:13px">QR-код появится когда сервер подключён</p>';
             qrEl.style.display = 'block';
         }
 
         modal.classList.add('active');
     } catch (err) {
         console.error(err);
-        showToast('Failed to load key details', 'error');
+        showToast('Ошибка загрузки ключа', 'error');
     }
 }
 
@@ -104,14 +104,14 @@ function copyConfig() {
     const el = document.getElementById('keyConfig');
     if (!el) return;
     navigator.clipboard.writeText(el.textContent).then(() => {
-        showToast('Config copied to clipboard!');
+        showToast('Конфиг скопирован!');
     }).catch(() => {
         const range = document.createRange();
         range.selectNode(el);
         window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
         document.execCommand('copy');
-        showToast('Config copied!');
+        showToast('Конфиг скопирован!');
     });
 }
 
@@ -123,17 +123,17 @@ function downloadConfig() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `oneline_${(name?.textContent || 'device').replace(/\s/g, '_')}.conf`;
+    a.download = `19vpn_${(name?.textContent || 'device').replace(/\s/g, '_')}.conf`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast('Config file downloaded!');
+    showToast('Конфиг скачан!');
 }
 
 // ─── Date Formatting ─────────────────────
 function formatDate(iso) {
     if (!iso) return '';
     const d = new Date(iso);
-    return d.toLocaleDateString('en-US', {
+    return d.toLocaleDateString('ru-RU', {
         year: 'numeric', month: 'short', day: 'numeric',
         hour: '2-digit', minute: '2-digit'
     });

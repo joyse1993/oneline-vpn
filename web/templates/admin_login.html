@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin — Oneline VPN</title>
+    <title>Админ — 19 VPN</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>◆</text></svg>">
 </head>
@@ -11,10 +11,10 @@
     <div class="admin-login-page">
         <div class="admin-login-card">
             <div class="text-center mb-2">
-                <span class="logo-icon" style="display:inline-flex;width:48px;height:48px;font-size:24px;margin-bottom:12px">&#9670;</span>
+                <span class="logo-icon" style="display:inline-flex;width:48px;height:48px;font-size:24px;margin-bottom:12px">19</span>
             </div>
-            <h2>Oneline Admin</h2>
-            <p class="subtitle">Sign in to manage your VPN service</p>
+            <h2>19 VPN Админ</h2>
+            <p class="subtitle">Войдите для управления VPN-сервисом</p>
 
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -37,7 +37,7 @@
             </form>
 
             <p class="text-center mt-2">
-                <a href="/" style="font-size:13px;color:var(--text-muted)">&#8592; Back to Oneline</a>
+                <a href="/" style="font-size:13px;color:var(--text-muted)">&#8592; Назад на 19 VPN</a>
             </p>
         </div>
     </div>

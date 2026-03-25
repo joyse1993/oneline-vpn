@@ -1,4 +1,4 @@
-"""Oneline VPN Client — macOS menu bar (tray) icon using rumps."""
+"""19 VPN Client — macOS menu bar (tray) icon using rumps."""
 
 try:
     import rumps
@@ -9,8 +9,8 @@ from config import list_profiles, load_config, save_config, APP_NAME, APP_VERSIO
 from vpn_engine import VPNEngine
 
 
-class OnelineTray:
-    """Menu bar app for Oneline VPN on macOS."""
+class NineteenVPNTray:
+    """Menu bar app for 19 VPN on macOS."""
 
     def __init__(self):
         self.engine = VPNEngine()
@@ -22,7 +22,7 @@ class OnelineTray:
 
         self.app = rumps.App(
             APP_NAME,
-            title="◆ Oneline",
+            title="🛡 19 VPN",
             quit_button=None,
         )
         self._build_menu()
@@ -74,14 +74,14 @@ class OnelineTray:
         items.append(rumps.MenuItem("Import Profile...", callback=self._import_profile))
         items.append(rumps.MenuItem("Refresh", callback=self._refresh))
         items.append(rumps.separator)
-        items.append(rumps.MenuItem(f"Oneline VPN v{APP_VERSION}", callback=None))
+        items.append(rumps.MenuItem(f"19 VPN v{APP_VERSION}", callback=None))
         items.append(rumps.MenuItem("Quit", callback=self._quit))
 
         self.app.menu.clear()
         for item in items:
             self.app.menu.add(item)
 
-        self.app.title = "◆" if not status["connected"] else "◆●"
+        self.app.title = "🛡" if not status["connected"] else "🛡●"
 
     def _make_connect(self, profile_name: str):
         def callback(_):
@@ -139,7 +139,7 @@ class OnelineTray:
                 name_resp = rumps.Window(
                     message="Name this profile:",
                     title="Profile Name",
-                    default_text="oneline-vpn",
+                    default_text="19vpn",
                     ok="Save",
                     cancel="Cancel",
                 ).run()
@@ -193,7 +193,7 @@ class OnelineTray:
             print("\nCommands: connect <name> | disconnect | status | quit")
 
             try:
-                cmd = input("\noneline> ").strip().split()
+                cmd = input("\n19vpn> ").strip().split()
             except (KeyboardInterrupt, EOFError):
                 break
 

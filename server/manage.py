@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Oneline VPN — Client management CLI."""
+"""19 VPN — Client management CLI."""
 
 import sys
 import os
@@ -76,7 +76,7 @@ def cmd_qr(name: str):
 def main():
     if len(sys.argv) < 2:
         print(f"""
-{CYAN}Oneline VPN Management{NC}
+{CYAN}19 VPN Management{NC}
 
 Usage:
   {sys.argv[0]} add <name>       Add new client

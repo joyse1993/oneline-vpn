@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""WireGuard key and config management for Oneline VPN."""
+"""WireGuard key and config management for 19 VPN."""
 
 import subprocess
 import ipaddress
