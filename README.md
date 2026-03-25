@@ -27,7 +27,9 @@
 | **macOS клиент** | Приложение в menu bar — подключение, kill switch, авто-connect |
 | **Все платформы** | macOS, Windows, Android, iOS через WireGuard конфиги + QR |
 | **Kill Switch** | Блокирует весь трафик при падении VPN (macOS) |
-| **YouTube, Telegram, Discord** | Всё работает без ограничений |
+| **YouTube, TikTok, Telegram, Discord** | Всё работает без ограничений |
+| **Instagram, Twitter/X, ChatGPT** | Полный доступ ко всем сервисам |
+| **Spotify, Twitch, Netflix, Steam** | Стриминг и игры без блокировок |
 
 ## Технологии
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>19 VPN — Для учеников гимназии ОдинДевять</title>
-    <meta name="description" content="VPN для учеников 19 гимназии. Безопасный доступ к YouTube, Telegram, Discord. WireGuard. Ноль логов.">
+    <meta name="description" content="VPN для учеников 19 гимназии. YouTube, TikTok, Telegram, Discord, Instagram, Twitter, ChatGPT — без блокировок. WireGuard. Ноль логов.">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡</text></svg>">
 </head>
@@ -17,7 +17,7 @@
             </a>
             <div class="nav-links" id="navLinks">
                 <a href="#features">Возможности</a>
-                <a href="#comparison">Сравнение</a>
+                <a href="#services">Сервисы</a>
                 <a href="#pricing">Тарифы</a>
                 <a href="/download">Скачать</a>
                 {% if session.get('user') %}
@@ -39,8 +39,8 @@
             </div>
             <h1>Свободный<br>интернет для<br><span class="gradient-text">Девятнадцатой.</span></h1>
             <p class="hero-subtitle">
-                Безопасный VPN на WireGuard — ноль логов, обход блокировок.
-                YouTube, Telegram, Discord и любой сервис без ограничений.
+                Безопасный VPN на WireGuard — ноль логов, обход любых блокировок.
+                YouTube, TikTok, Telegram, Discord, Instagram и всё остальное.
             </p>
             <div class="hero-buttons">
                 <a href="#" class="btn btn-gold btn-xl" onclick="showModal('register')">
@@ -54,8 +54,8 @@
                     <span class="stat-label">Логов</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-value">&lt;3мс</span>
-                    <span class="stat-label">Задержка</span>
+                    <span class="stat-value">12+</span>
+                    <span class="stat-label">Сервисов</span>
                 </div>
                 <div class="stat">
                     <span class="stat-value">4</span>
@@ -90,9 +90,24 @@
                     <p>Обфускация через WebSocket — для провайдера это обычный HTTPS-трафик. Невозможно заблокировать.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">&#127909;</div>
-                    <h3>YouTube, Telegram, Discord</h3>
-                    <p>Всё работает. YouTube без тормозов, Telegram без ограничений, Discord для общения и игр.</p>
+                    <div class="feature-icon">&#127916;</div>
+                    <h3>YouTube + TikTok</h3>
+                    <p>YouTube 4K без тормозов. TikTok без ограничений. Shorts, Reels, видео — всё летает.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128172;</div>
+                    <h3>Telegram + Discord</h3>
+                    <p>Мессенджеры работают мгновенно. Голосовые, видео, стриминг в Discord — без лагов.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#128247;</div>
+                    <h3>Instagram + Twitter/X</h3>
+                    <p>Сторис, рилсы, посты — Instagram без ограничений. Twitter/X для новостей и мемов.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">&#129302;</div>
+                    <h3>ChatGPT + AI сервисы</h3>
+                    <p>ChatGPT, Claude, Midjourney, Notion AI — доступ ко всем AI-инструментам для учёбы и креатива.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">&#128241;</div>
@@ -103,6 +118,75 @@
                     <div class="feature-icon">&#127979;</div>
                     <h3>Для нашей гимназии</h3>
                     <p>Свой сервер, свои правила. Без рекламы, без слежки, без продажи данных. Сделано в 19-й.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background:var(--surface)" id="services">
+        <div class="container">
+            <h2 class="section-title">Что работает с 19 VPN</h2>
+            <p class="section-subtitle">Полный доступ ко всем сервисам. Без исключений.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;max-width:900px;margin:0 auto">
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#9654;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">YouTube</div>
+                    <div style="font-size:12px;color:var(--text-muted)">4K без тормозов</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#127925;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">TikTok</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Видео + прямые</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#9992;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">Telegram</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Чаты + каналы</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#127918;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">Discord</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Голос + стрим</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#128247;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">Instagram</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Reels + Stories</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#120143;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">Twitter / X</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Лента + Spaces</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#129302;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">ChatGPT</div>
+                    <div style="font-size:12px;color:var(--text-muted)">GPT-4 + DALL-E</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#127911;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">Spotify</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Музыка + подкасты</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#127900;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">Twitch</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Стримы + VOD</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#128187;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">Steam</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Игры + магазин</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#128249;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">Netflix</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Фильмы + сериалы</div>
+                </div>
+                <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:all 0.3s" class="feature-card">
+                    <div style="font-size:32px;margin-bottom:6px">&#128279;</div>
+                    <div style="font-weight:700;color:white;font-size:14px">И ещё 1000+</div>
+                    <div style="font-size:12px;color:var(--text-muted)">Любой сайт</div>
                 </div>
             </div>
         </div>
@@ -156,6 +240,8 @@
                         <tr><td>Обфускация</td><td class="highlight"><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="cross">&#10005;</span></td><td><span class="cross">&#10005;</span></td></tr>
                         <tr><td>Открытый код</td><td class="highlight"><span class="check">&#10003;</span></td><td><span class="cross">&#10005;</span></td><td><span class="check">&#10003;</span></td><td><span class="cross">&#10005;</span></td></tr>
                         <tr><td>Бесплатно</td><td class="highlight"><span class="check">&#10003;</span></td><td><span class="cross">&#10005;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td></tr>
+                        <tr><td>TikTok / Instagram</td><td class="highlight"><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="cross">&#10005;</span></td></tr>
+                        <tr><td>ChatGPT / AI</td><td class="highlight"><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="cross">&#10005;</span></td></tr>
                         <tr><td>Цена</td><td class="highlight"><strong>Бесплатно</strong></td><td>$12.99/мес</td><td>$9.99/мес</td><td>Бесплатно*</td></tr>
                     </tbody>
                 </table>
@@ -213,7 +299,7 @@
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="testimonial-text">"Discord для игр, Telegram для общения — всё летает. Главное — никаких логов и никакой рекламы. Респект разработчикам."</p>
+                    <p class="testimonial-text">"TikTok, Discord, Telegram — всё летает. Друзья спрашивают как я это сделал. Респект разработчикам 19 VPN."</p>
                     <div class="testimonial-author">Данил Р.</div>
                     <div class="testimonial-role">9 класс, ОдинДевять</div>
                 </div>
@@ -236,6 +322,10 @@
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">Провайдер увидит, что я использую VPN? <span class="faq-arrow">&#9660;</span></div>
                     <div class="faq-answer"><p>Нет. 19 VPN использует обфускацию через WebSocket — для провайдера трафик выглядит как обычный HTTPS. Невозможно определить и заблокировать.</p></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">TikTok и Instagram работают? <span class="faq-arrow">&#9660;</span></div>
+                    <div class="faq-answer"><p>Да. TikTok, Instagram, YouTube, Twitter/X, Spotify, ChatGPT, Discord, Telegram, Netflix, Twitch, Steam — всё работает. Любой сайт и приложение.</p></div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question" onclick="toggleFaq(this)">Какие платформы поддерживаются? <span class="faq-arrow">&#9660;</span></div>
